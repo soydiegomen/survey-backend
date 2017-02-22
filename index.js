@@ -10,6 +10,7 @@ app.use(methodOverride());
 // Load the routes ("controllers" -ish)
 //app.use('/api', require('./tv-shows/router'));
 app.use('/api', require('./companys/router'));
+app.use('/api', require('./surveys/router'));
 
 // Export the app instance for unit testing via supertest
 module.exports = app
