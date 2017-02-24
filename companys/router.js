@@ -10,4 +10,4 @@ router.route('/company/:id')
 	.put(companyCtrl.updateCompany)
 	.delete(companyCtrl.deleteCompany);
 
-module.exports = router  
+module.exports = router;

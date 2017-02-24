@@ -10,4 +10,4 @@ router.route('/survey/:id')
 	.put(surveyCtrl.updateSurvey)
 	.delete(surveyCtrl.deleteSurvey);
 
-module.exports = router  
+module.exports = router;
