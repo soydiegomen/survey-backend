@@ -6,8 +6,8 @@ var surveySchema = new Schema({
 	surveyType:    { type: String, enum: ['test','customer-sat'] },
 	description:    { type: String },
 	isActive:    { type: Boolean },
-	creationDate:     { type: Date },
-	lastModification:     { type: Date },
+	creationDate:     { type: Date, default: Date.now },
+	lastModification:     { type: Date, default: Date.now },
 	questions: [{
 			questionType: { type: String, enum: ['text','options','yes-no'] },
 			text:    { type: String },
