@@ -10,6 +10,7 @@ var surveySchema = new Schema({
 	lastModification:     { type: Date, default: Date.now },
 	questions: [{
 			questionType: { type: String, enum: ['text','options','yes-no'] },
+			code:    { type: String },
 			text:    { type: String },
 			isActive:    { type: Boolean },
 			creationDate:     { type: Date }
