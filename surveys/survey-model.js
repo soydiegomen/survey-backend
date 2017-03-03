@@ -2,8 +2,8 @@ var mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
 
 var surveySchema = new Schema({  
-	companyId:    { type: String },
-	surveyType:    { type: String, enum: ['test','customer-sat'] },
+	companyId:    { type: mongoose.Schema.Types.ObjectId },
+	surveyType:    { type: String, enum: ['test','customer'] },
 	description:    { type: String },
 	isActive:    { type: Boolean },
 	creationDate:     { type: Date, default: Date.now },
