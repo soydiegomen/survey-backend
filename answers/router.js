@@ -12,6 +12,15 @@ router.route('/answer/:id')
 	.delete(answerCtrl.deleteAnswer);
 
 router.route('/ans-report/count-by-survey/:id')
-	.get(answerReportCtrl.countAnswers);
+	.get(answerReportCtrl.countAnswersBySurvey);
+
+router.route('/ans-report/count-details/:surveyId/:questionId')
+	.get(answerReportCtrl.countAnsDetBySurvAndQuestion);
+
+router.route('/ans-report/get-details/:surveyId/:questionId')
+	.get(answerReportCtrl.getAnsDetBySurvAndQuestion);
+
+router.route('/ans-report/count-details-diff-values/:surveyId/:questionId')
+	.get(answerReportCtrl.countDifferentAnsDetValues);
 
 module.exports = router;
