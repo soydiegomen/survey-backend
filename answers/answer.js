@@ -31,11 +31,17 @@ exports.addAnswer = function(req, res) {
     var newAnswer = new Answer({
         surveyId:    req.body.surveyId,
         key:     req.body.key,
-        status:     req.body.status,
-        creationDate:    req.body.creationDate,
         usedTime:     req.body.usedTime,
         details:     req.body.details,
     });
+
+    if(req.body.status){
+       newAnswer.status =  req.body.status;
+    }
+
+    if(req.body.creationDate){
+       newAnswer.creationDate =  req.body.creationDate;
+    }
 
     newAnswer.save(function(err, answer) {
         if(err) 
@@ -49,10 +55,12 @@ exports.updateAnswer = function(req, res) {
     Answer.findById(req.params.id, function(err, answer) {
         answer.surveyId   = req.body.surveyId;
         answer.key    = req.body.key;
-        answer.status   = req.body.status;
-        answer.creationDate    = req.body.creationDate;
         answer.usedTime   = req.body.usedTime;
         answer.details    = req.body.details;
+
+        if(req.body.status){
+           newAnswer.status =  req.body.status;
+        }
 
         answer.save(function(err) {
             if(err) 

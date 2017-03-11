@@ -33,10 +33,16 @@ exports.addSurvey = function(req, res) {
         surveyType:     req.body.surveyType,
         description:    req.body.description,
         isActive:     req.body.isActive,
-        creationDate:    req.body.creationDate,
-        lastModification:     req.body.lastModification,
         questions:     req.body.questions
     });
+
+    if(req.body.creationDate){
+       newSurvey.creationDate =  req.body.creationDate;
+    }
+
+    if(req.body.lastModification){
+       newSurvey.lastModification =  req.body.lastModification;
+    }
 
     newSurvey.save(function(err, survey) {
         if(err) 
@@ -52,9 +58,11 @@ exports.updateSurvey = function(req, res) {
         survey.surveyType = req.body.surveyType;
         survey.description =req.body.description;
         survey.isActive = req.body.isActive;
-        survey.creationDate = req.body.creationDate;
-        survey.lastModification = req.body.lastModification;
         survey.questions = req.body.questions;
+
+        if(req.body.lastModification){
+           survey.lastModification =  req.body.lastModification;
+        }
 
         survey.save(function(err) {
             if(err) 
