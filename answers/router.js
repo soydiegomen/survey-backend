@@ -17,7 +17,7 @@ router.route('/ans-report/count-by-survey/:id')
 router.route('/ans-report/count-details/:surveyId/:questionId')
 	.get(answerReportCtrl.countAnsDetBySurvAndQuestion);
 
-router.route('/ans-report/get-details/:surveyId/:questionId')
+router.route('/ans-report/get-details/:surveyId/:questionId/:limit?')
 	.get(answerReportCtrl.getAnsDetBySurvAndQuestion);
 
 router.route('/ans-report/count-details-diff-values/:surveyId/:questionId')

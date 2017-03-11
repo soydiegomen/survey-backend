@@ -51,6 +51,7 @@ exports.countAnsDetBySurvAndQuestion = function(req, res) {
 
 //GET - Get answer details filtering by survey and question
 exports.getAnsDetBySurvAndQuestion = function(req, res) {  
+	var limit = req.params.limit ? Number(req.params.limit) : 20; 
     Answer.aggregate(
     	[
 			{ $unwind : "$details" },
@@ -59,8 +60,8 @@ exports.getAnsDetBySurvAndQuestion = function(req, res) {
 					"details.questionId": new mongoose.Types.ObjectId(req.params.questionId)
 				}
 			},
-			//Agregar un limit
-			//{ $limit : 1 }
+			{ $limit : limit },
+			{ $sort : { creationDate :-1 } } //sort descending
 		],
     	function(err, result) {
         if(err) 
