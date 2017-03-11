@@ -11,8 +11,8 @@ router.route('/answer/:id')
 	.put(answerCtrl.updateAnswer)
 	.delete(answerCtrl.deleteAnswer);
 
-router.route('/ans-report/count-by-survey/:id')
-	.get(answerReportCtrl.countAnswersBySurvey);
+router.route('/ans-report/answers-by-month/:id')
+	.get(answerReportCtrl.countAnswersLastMonths);
 
 router.route('/ans-report/count-details/:surveyId/:questionId')
 	.get(answerReportCtrl.countAnsDetBySurvAndQuestion);
