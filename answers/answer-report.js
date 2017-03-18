@@ -1,11 +1,22 @@
 var mongoose = require('mongoose');  
 var Answer = require('./answer-model');
 
+//Create a singleton class
+var ansReportHelper = new function() {
+	this.getDateFilter = function(params){
+		//Last six months by default
+		var lastMonths = params.months ? Number(params.months) : 6;
+
+		var dateFilter = new Date();
+		dateFilter.setMonth(dateFilter.getMonth() - lastMonths );
+		return dateFilter;
+	}
+}
+
 //GET - Count answer in the DB
 exports.countAnswersLastMonths = function(req, res) {  
-	var dateFilter = new Date();
-	//Last six months
-	dateFilter.setMonth(dateFilter.getMonth() - 6);
+	//Define date filter
+	var dateFilter = ansReportHelper.getDateFilter(req.params);
 
     Answer.aggregate(
     	[
@@ -42,11 +53,15 @@ exports.countAnswersLastMonths = function(req, res) {
 
 //GET - Count answer details filtering by survey and question
 exports.countAnsDetBySurvAndQuestion = function(req, res) {  
+	//Define date filter
+	var dateFilter = ansReportHelper.getDateFilter(req.params);
+
     Answer.aggregate(
     	[
 			{ $unwind : "$details" },
 			{ $match: {
 					surveyId: new mongoose.Types.ObjectId(req.params.surveyId),
+					creationDate: { $gte : dateFilter },
 					"details.questionId": new mongoose.Types.ObjectId(req.params.questionId)
 				}
 			},
@@ -111,3 +126,4 @@ exports.countDifferentAnsDetValues = function(req, res) {
 	    res.status(200).jsonp(result);
     });
 };
+

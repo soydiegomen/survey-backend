@@ -11,10 +11,10 @@ router.route('/answer/:id')
 	.put(answerCtrl.updateAnswer)
 	.delete(answerCtrl.deleteAnswer);
 
-router.route('/ans-report/answers-by-month/:id')
+router.route('/ans-report/answers-by-month/:id/:months?')
 	.get(answerReportCtrl.countAnswersLastMonths);
 
-router.route('/ans-report/count-details/:surveyId/:questionId')
+router.route('/ans-report/count-details/:surveyId/:questionId/:months?')
 	.get(answerReportCtrl.countAnsDetBySurvAndQuestion);
 
 router.route('/ans-report/get-details/:surveyId/:questionId/:limit?')
