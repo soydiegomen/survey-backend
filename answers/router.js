@@ -17,10 +17,10 @@ router.route('/ans-report/answers-by-month/:id/:months?')
 router.route('/ans-report/count-details/:surveyId/:questionId/:months?')
 	.get(answerReportCtrl.countAnsDetBySurvAndQuestion);
 
-router.route('/ans-report/get-details/:surveyId/:questionId/:limit?')
+router.route('/ans-report/get-details/:surveyId/:questionId/:months?')
 	.get(answerReportCtrl.getAnsDetBySurvAndQuestion);
 
-router.route('/ans-report/count-details-diff-values/:surveyId/:questionId')
+router.route('/ans-report/group-details-by-values/:surveyId/:questionId/:months?')
 	.get(answerReportCtrl.countDifferentAnsDetValues);
 
 module.exports = router;

@@ -82,16 +82,18 @@ exports.countAnsDetBySurvAndQuestion = function(req, res) {
 
 //GET - Get answer details filtering by survey and question
 exports.getAnsDetBySurvAndQuestion = function(req, res) {  
-	var limit = req.params.limit ? Number(req.params.limit) : 20; 
+	//Define date filter
+	var dateFilter = ansReportHelper.getDateFilter(req.params);
+
     Answer.aggregate(
     	[
 			{ $unwind : "$details" },
 			{ $match: {
 					surveyId: new mongoose.Types.ObjectId(req.params.surveyId),
+					creationDate: { $gte : dateFilter },
 					"details.questionId": new mongoose.Types.ObjectId(req.params.questionId)
 				}
 			},
-			{ $limit : limit },
 			{ $sort : { creationDate :-1 } } //sort descending
 		],
     	function(err, result) {
@@ -105,10 +107,14 @@ exports.getAnsDetBySurvAndQuestion = function(req, res) {
 
 //GET - Count how many times an answer detail has a different value, filtering by survey and question
 exports.countDifferentAnsDetValues = function(req, res) {  
+	//Define date filter
+	var dateFilter = ansReportHelper.getDateFilter(req.params);
+
     Answer.aggregate([
 			{ $unwind : "$details" },
 			{ $match: {
 					surveyId: new mongoose.Types.ObjectId(req.params.surveyId),
+					creationDate: { $gte : dateFilter },
 					"details.questionId": new mongoose.Types.ObjectId(req.params.questionId)
 				}
 			},
