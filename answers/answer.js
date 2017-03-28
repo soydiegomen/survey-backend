@@ -23,6 +23,28 @@ exports.getById = function(req, res) {
     });
 };
 
+//GET - Return the last answer. For simulate paging, using date for filter, sort DESC by creationDate and limit one row
+exports.getLastAnswer = function(req, res) {  
+    //var lastDate = '2017-03-25T00:00:00.000Z';
+    //lastdate mustbe a valid date in javascript date format
+    var lastDate = req.params.lastDate;
+    Answer.find({ 
+        surveyId: new mongoose.Types.ObjectId(req.params.surveyId),
+        creationDate: { 
+            $lte: new Date(lastDate) 
+        } 
+    })
+    .sort({ creationDate :-1 })
+    .limit(1)
+    .exec(function(err, answer) {
+        if(err) 
+            res.send(500, err.message);
+
+        console.log('GET /getLastAnswer/'+ req.params.surveyId + '/' +lastDate)
+        res.status(200).jsonp(answer);
+    })
+};
+
 //POST - Insert a new answer in the DB
 exports.addAnswer = function(req, res) {  
     console.log('POST');
