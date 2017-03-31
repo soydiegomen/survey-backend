@@ -28,13 +28,36 @@ exports.getLastAnswer = function(req, res) {
     //var lastDate = '2017-03-25T00:00:00.000Z';
     //lastdate mustbe a valid date in javascript date format
     var lastDate = req.params.lastDate;
+
+    //Default direction is before, but the service could move forward
+    // lte = before answer and gte = next answer
+    var dateFilter = null;
+    var dateOrder = null;
+    if(req.params.direction && req.params.direction === 'next'){
+        //Answer greater to the date to the date
+        dateFilter = { 
+            $gte : new Date(lastDate) 
+        };
+        //order ASC
+        dateOrder = { 
+            creationDate : 1 
+        };
+    }else{
+        //Answer least to the date
+        dateFilter = { 
+            $lte : new Date(lastDate) 
+        }
+        //order DESC
+        dateOrder = { 
+            creationDate : -1 
+        };
+    }
+
     Answer.find({ 
-        surveyId: new mongoose.Types.ObjectId(req.params.surveyId),
-        creationDate: { 
-            $lte: new Date(lastDate) 
-        } 
+        surveyId : new mongoose.Types.ObjectId(req.params.surveyId),
+        creationDate: dateFilter 
     })
-    .sort({ creationDate :-1 })
+    .sort( dateOrder )
     .limit(1)
     .exec(function(err, answer) {
         if(err) 
