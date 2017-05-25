@@ -2,13 +2,13 @@ var config = module.exports
 var PRODUCTION = process.env.NODE_ENV === 'production'
 
 config.express = {
-  port: process.env.EXPRESS_PORT || 3000,
-  ip: 'localhost'
+  port: process.env.EXPRESS_PORT || 8082,
+  ip: '10.138.192.89'
 }
 
 config.mongodb = {
   port: process.env.MONGODB_PORT || 27017,
-  host: process.env.MONGODB_HOST || 'localhost'
+  host: process.env.MONGODB_HOST || '127.0.0.1'
 }
 if (PRODUCTION) {
   // for example
