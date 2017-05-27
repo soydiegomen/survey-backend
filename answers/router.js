@@ -11,6 +11,9 @@ router.route('/answer/:id')
 	.put(answerCtrl.updateAnswer)
 	.delete(answerCtrl.deleteAnswer);
 
+router.route('/answer-by-survey/:surveyId')
+	.get(answerCtrl.getAnswerBySurvey)
+
 router.route('/last-answer/:surveyId/:lastDate/:direction?')
 	.get(answerCtrl.getLastAnswer)
 
